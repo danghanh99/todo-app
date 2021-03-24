@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 
 function App() {
@@ -14,18 +15,49 @@ function App() {
     const index = todoList.findIndex((x) => x.id === todo.id);
     if (index < 0) return;
 
-    const newTodoList = [... todoList];
+    const newTodoList = [...todoList];
     newTodoList.splice(index, 1);
     setTodoList(newTodoList);
   }
-  console.log(todoList.length)
+  console.log(todoList.length);
+
+  function handleTodoFormSubmit(formValues) {
+    console.log("Form submit:", formValues);
+
+    const newTodo = {
+      id: todoList.length + 1,
+      ...formValues,
+    };
+
+    const newTodoList = [...todoList];
+    newTodoList.push(newTodo);
+    setTodoList(newTodoList);
+  }
   return (
     <div>
       <div className="app">
-        <TodoList todos={todoList} onTodoClick={handleTodoClick} />
-
+        <div className="page-content page-container" id="page-content">
+          <div className="padding">
+            <div className="row container d-flex justify-content-center">
+              <div className="col-md-12">
+                <div className="card px-3">
+                  <div className="card-body">
+                    <h4 className="card-title">Awesome Todo list</h4>
+                    <TodoForm onSubmit={handleTodoFormSubmit} />
+                    <div className="list-wrapper">
+                      <TodoList
+                        todos={todoList}
+                        onTodoClick={handleTodoClick}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-     </div>
+    </div>
   );
 }
 
