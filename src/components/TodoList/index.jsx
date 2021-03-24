@@ -42,7 +42,7 @@ function TodoList(props) {
                 <div className="list-wrapper">
                   <ul className="d-flex flex-column-reverse todo-list">
                     {todos.map((todo) => (
-                      <li key={todo.id} onClick={() => handleClick(todo)}>
+                      <li key={todo.id}>
                         <div className="form-check">
                           {" "}
                           <label className="form-check-label">
@@ -51,7 +51,10 @@ function TodoList(props) {
                             {todo.title} <i className="input-helper" />
                           </label>{" "}
                         </div>{" "}
-                        <i className="remove mdi mdi-close-circle-outline" />
+                        <i
+                          className="remove mdi mdi-close-circle-outline"
+                          onClick={() => handleClick(todo)}
+                        />
                       </li>
                     ))}
                   </ul>
