@@ -20,7 +20,7 @@ function TodoForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!onSubmit || value == '') return;
+    if (!onSubmit || value === '') return;
 
     const formValues = {
       title: value,
@@ -31,10 +31,6 @@ function TodoForm(props) {
   }
 
   return (
-    // <form onSubmit={handleSubmit}>
-    //   <input type="text" value={value} onChange={handleValueChange}/>
-    // </form>
-    // <div className="add-items d-flex">
       <form onSubmit={handleSubmit} className="add-items d-flex">
         <input
           value={value}
@@ -50,7 +46,6 @@ function TodoForm(props) {
           Add
         </button>
       </form>
-    // </div>
   );
 }
 
