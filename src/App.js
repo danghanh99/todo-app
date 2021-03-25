@@ -5,9 +5,9 @@ import TodoList from "./components/TodoList";
 
 function App() {
   const [todoList, setTodoList] = useState([
-    { id: 1, title: "hello guys" },
-    { id: 2, title: "novahub " },
-    { id: 3, title: "owt" },
+    { id: 1, title: "hello guys", done: false },
+    { id: 2, title: "novahub ", done: false },
+    { id: 3, title: "owt", done: false },
   ]);
 
   function handleTodoClick(todo) {
@@ -19,6 +19,17 @@ function App() {
     newTodoList.splice(index, 1);
     setTodoList(newTodoList);
   }
+
+  function handleCheckBoxClick(todo) {
+    console.log(todo);
+    const index = todoList.findIndex((x) => x.id === todo.id);
+    if (index < 0) return;
+
+    const newTodoList = [...todoList];
+    newTodoList[index].done = !newTodoList[index].done;
+    setTodoList(newTodoList);
+  }
+
   console.log(todoList.length);
 
   function handleTodoFormSubmit(formValues) {
@@ -48,6 +59,7 @@ function App() {
                       <TodoList
                         todos={todoList}
                         onTodoClick={handleTodoClick}
+                        onCheckBoxClick={handleCheckBoxClick}
                       />
                     </div>
                   </div>
