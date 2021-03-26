@@ -1,64 +1,90 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-
+const API_URL = "http://localhost:3001/api/";
 function App() {
-  const [todoList, setTodoList] = useState([
-    { id: 1, title: "hello guys", done: false },
-    { id: 2, title: "novahub ", done: false },
-    { id: 3, title: "owt", done: false },
-  ]);
+  const [todoList, setTodoList] = useState([]);
 
-  function handleTodoClick(todo) {
-    console.log(todo);
-    const index = todoList.findIndex((x) => x.id === todo.id);
-    if (index < 0) return;
+  useEffect(() => {
+    async function getTodoList() {
+      getAllTodos();
+    }
 
-    const newTodoList = [...todoList];
-    newTodoList.splice(index, 1);
-    setTodoList(newTodoList);
+    getTodoList();
+  }, []);
+  function getAllTodos() {
+    axios({
+      method: "GET",
+      url: API_URL + "todos",
+      data: null,
+    })
+      .then((res) => {
+        console.log(res);
+        setTodoList(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
+  function handleIconDeleteClick(todo) {
+    const params_id = todo.id;
+    axios
+    .delete(API_URL + "todos/" + params_id)
+    .then(function (response) {
+      getAllTodos();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
 
   function handleCheckBoxClick(todo) {
-    console.log(todo);
-    const index = todoList.findIndex((x) => x.id === todo.id);
-    if (index < 0) return;
-
-    const newTodoList = [...todoList];
-    newTodoList[index].done = !newTodoList[index].done;
-    setTodoList(newTodoList);
+    axios
+    .patch(API_URL + "todos/" + todo.id, {
+      title: todo.title,
+      done: !todo.done,
+    })
+    .then(function (response) {
+      getAllTodos();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
-
-  console.log(todoList.length);
 
   function handleTodoFormSubmit(formValues) {
     console.log("Form submit:", formValues);
-
-    const newTodo = {
-      id: todoList.length + 1,
-      ...formValues,
-    };
-
-    const newTodoList = [...todoList];
-    newTodoList.push(newTodo);
-    setTodoList(newTodoList);
+    axios
+      .post(API_URL + "todos", {
+        title: formValues.title,
+        done: false,
+      })
+      .then(function (response) {
+        console.log(response);
+        getAllTodos();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
   return (
     <div>
       <div className="app">
         <div className="page-content page-container" id="page-content">
-          <div className="padding">
+        <div className="padding" style={{textAlign: 'center', display: 'flex', justifyContent: 'center'}} >
             <div className="row container d-flex justify-content-center">
               <div className="col-md-12">
                 <div className="card px-3">
                   <div className="card-body">
-                    <h4 className="card-title">Awesome Todo list</h4>
+                    <h4 className="card-title" style={{textAlign: 'left'}}>Awesome Todo list</h4>
                     <TodoForm onSubmit={handleTodoFormSubmit} />
                     <div className="list-wrapper">
                       <TodoList
                         todos={todoList}
-                        onTodoClick={handleTodoClick}
+                        onTodoClick={handleIconDeleteClick}
                         onCheckBoxClick={handleCheckBoxClick}
                       />
                     </div>
