@@ -1,6 +1,11 @@
+import { editDoneTodo, deleteTodo } from "../TodoForm/todoSlice";
 import React from "react";
 import PropTypes from "prop-types";
 import "../../index.css";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+const API_URL = "http://localhost:3001/api/";
+
 TodoList.propTypes = {
   todos: PropTypes.array,
   onTodoClick: PropTypes.func,
@@ -14,14 +19,33 @@ TodoList.defaultProps = {
 
 function TodoList(props: any) {
   const { todos, onTodoClick, onCheckBoxClick } = props;
+  const dispatch = useDispatch();
+
   function handleClick(todo: any) {
-    if (onTodoClick) {
-      onTodoClick(todo);
-    }
+    const params_id = todo.id;
+    axios
+      .delete(API_URL + "todos/" + params_id)
+      .then(function () {
+        dispatch(deleteTodo(params_id));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   function handleCheck(todo: any) {
-    onCheckBoxClick(todo);
+    axios
+      .patch(API_URL + "todos/" + todo.id, {
+        title: todo.title,
+        done: !todo.done,
+      })
+      .then(function (response) {
+        let action = response.data;
+        dispatch(editDoneTodo(action));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
