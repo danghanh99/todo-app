@@ -1,22 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+export interface ITodo {
+  id: number
+  title: string
+  done: boolean
+}
 
 const todo = createSlice({
   name: 'todos',
-  initialState: [],
+  initialState: [] as ITodo[],
   reducers: {
-    addTodo: (state: any, action: any) => {
+    addTodo: (state, action: PayloadAction<ITodo>) => {
       state.push(action.payload)
     },
-    getTodos: (state: any, action: any) => {
+    getTodos: (state, action: PayloadAction<ITodo[]>) => {
       return state = action.payload;
     },
-    editDoneTodo: (state: any, action: any) => {
-      const todo = state[action.payload.id]
-      todo.done = action.payload.done
-      todo.title = action.payload.title
+    editDoneTodo: (state: ITodo[], action: PayloadAction<ITodo>) => {
+      const editTodo = state[action.payload.id]
+      editTodo.done = action.payload.done
+      editTodo.title = action.payload.title
     },
-    deleteTodo: (state: any, action: any) => {
-      return state.filter((todo: any, i: any) => i !== action.payload)
+    deleteTodo: (state, action: PayloadAction<ITodo>) => {
+      return state.filter((item: ITodo) => item.id !== action.payload.id)
     },
   }
 });

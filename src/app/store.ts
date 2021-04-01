@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import todoReducer from '../components/TodoForm/todoSlice';
 
 const rootReducer = {

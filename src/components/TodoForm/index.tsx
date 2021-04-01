@@ -1,35 +1,23 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "../../index.css";
-import { addTodo } from "./todoSlice";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "./todoSlice";
 const API_URL = "http://localhost:3001/api/";
 
-TodoForm.propTypes = {
-  onSubmit: PropTypes.func,
-};
-
-TodoForm.defaultProps = {
-  onSubmit: null,
-};
-
-function TodoForm(props: any) {
-  const { onSubmit } = props;
+function TodoForm(): JSX.Element {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
 
-  function handleValueChange(e: any) {
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  }
+  };
 
-  function handleTodoFormSubmit(formValues: any) {
-    console.log("Form submit:", formValues);
-  }
-
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (value === "") return;
+    if (value === "") {
+      return;
+    }
 
     const formValues = {
       title: value,
@@ -40,13 +28,13 @@ function TodoForm(props: any) {
         title: formValues.title,
         done: false,
       })
-      .then(function (response) {
-        let action = response.data;
+      .then((response) => {
+        const action = response.data;
 
         dispatch(addTodo(action));
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        throw error;
       });
 
     setValue("");

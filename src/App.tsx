@@ -1,3 +1,4 @@
+import { ITodo } from "./model/todo";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
@@ -7,8 +8,12 @@ import TodoList from "./components/TodoList";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodos } from "./components/TodoForm/todoSlice";
 const API_URL = "http://localhost:3001/api/";
-function App() {
-  const todoList = useSelector((state: any) => state.todos)
+export interface IState {
+  todos: ITodo[];
+}
+
+function App(): JSX.Element {
+  const todoList = useSelector((state: IState) => state.todos);
   const dispatch = useDispatch();
   useEffect(() => {
     axios({
@@ -18,8 +23,8 @@ function App() {
       .then((res) => {
         dispatch(getTodos(res.data));
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch((error) => {
+        throw error;
       });
   }, []);
 
@@ -44,9 +49,7 @@ function App() {
                     </h4>
                     <TodoForm />
                     <div className="list-wrapper">
-                      <TodoList
-                        todos={todoList}
-                      />
+                      <TodoList todos={todoList} />
                     </div>
                   </div>
                 </div>
