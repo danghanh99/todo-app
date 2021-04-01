@@ -16,7 +16,8 @@ const todo = createSlice({
       return state = action.payload;
     },
     editDoneTodo: (state: ITodo[], action: PayloadAction<ITodo>) => {
-      const editTodo = state[action.payload.id]
+      const index = state.findIndex((item) => item.id === action.payload.id);
+      const editTodo = state[index]
       editTodo.done = action.payload.done
       editTodo.title = action.payload.title
     },
