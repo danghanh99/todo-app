@@ -1,9 +1,15 @@
+import React from "react";
+import _ from "lodash/fp";
+import { useForm } from "react-hook-form";
 import axios from "axios";
-import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodo } from "./todoSlice";
 const API_URL = "http://localhost:3001/api/";
+
+interface IFormInput {
+  value: string;
+}
 
 function TodoForm(): JSX.Element {
   const [value, setValue] = useState("");
@@ -13,14 +19,11 @@ function TodoForm(): JSX.Element {
     setValue(e.target.value);
   };
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (value === "") {
-      return;
-    }
+  const { register, handleSubmit, errors } = useForm<IFormInput>();
 
+  const onSubmit = (data: IFormInput) => {
     const formValues = {
-      title: value,
+      title: data.value,
     };
 
     axios
@@ -38,24 +41,40 @@ function TodoForm(): JSX.Element {
       });
 
     setValue("");
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="add-items d-flex">
-      <input
-        value={value}
-        onChange={handleValueChange}
-        type="text"
-        className="form-control todo-list-input"
-        placeholder="What do you need to do today?"
-      />
-      <button
-        type="submit"
-        className="add btn btn-primary font-weight-bold todo-list-add-btn"
-      >
-        Add
-      </button>
-    </form>
+    <React.Fragment>
+      <form onSubmit={handleSubmit(onSubmit)} className="add-items d-flex">
+        <input
+          value={value}
+          onChange={handleValueChange}
+          placeholder="What do you need to do today?"
+          className="form-control todo-list-input"
+          name="value"
+          ref={register({
+            required: true,
+          })}
+        />
+        <button
+          type="submit"
+          className="add btn btn-primary font-weight-bold todo-list-add-btn"
+        >
+          Add
+        </button>
+      </form>
+      {errors.value && (
+        <div
+          className="alert alert-danger"
+          role="alert"
+          style={{
+            textAlign: "left",
+          }}
+        >
+          <strong>{errors.value && "Input form is required"}</strong>
+        </div>
+      )}
+    </React.Fragment>
   );
 }
 
