@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-export interface ITodo {
-  id: number
-  title: string
-  done: boolean
-}
+import ITodo from "../../models/todo"
 
 const todo = createSlice({
   name: 'todos',

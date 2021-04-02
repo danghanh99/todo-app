@@ -1,4 +1,4 @@
-import { ITodo } from "./model/todo";
+import ITodo from "./models/todo";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";

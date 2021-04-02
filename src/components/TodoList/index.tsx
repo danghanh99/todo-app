@@ -1,13 +1,10 @@
+import ITodo from "../../models/todo"
 import { editDoneTodo, deleteTodo } from "../TodoForm/todoSlice";
 import "../../index.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 const API_URL = "http://localhost:3001/api/";
-export interface ITodo {
-  id: number;
-  title: string;
-  done: boolean;
-}
+
 interface IProps {
   todos: ITodo[];
 }
