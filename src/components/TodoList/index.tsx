@@ -1,34 +1,50 @@
-import React from "react";
-import PropTypes from "prop-types";
+import ITodo from "../../models/todo"
+import { editDoneTodo, deleteTodo } from "../TodoForm/todoSlice";
 import "../../index.css";
-TodoList.propTypes = {
-  todos: PropTypes.array,
-  onTodoClick: PropTypes.func,
-  onCheckBoxClick: PropTypes.func,
-};
+import axios from "axios";
+import { useDispatch } from "react-redux";
+const API_URL = "http://localhost:3001/api/";
 
-TodoList.defaultProps = {
-  todos: [],
-  onTodoClick: null,
-};
+interface IProps {
+  todos: ITodo[];
+}
 
-function TodoList(props: any) {
-  const { todos, onTodoClick, onCheckBoxClick } = props;
-  function handleClick(todo: any) {
-    if (onTodoClick) {
-      onTodoClick(todo);
-    }
+function TodoList(props: IProps): JSX.Element {
+  const { todos } = props;
+  const dispatch = useDispatch();
+
+  function handleClick(todo: ITodo) {
+    const paramsId = todo.id;
+    axios
+      .delete(API_URL + "todos/" + paramsId)
+      .then(() => {
+        dispatch(deleteTodo(todo));
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
-  function handleCheck(todo: any) {
-    onCheckBoxClick(todo);
+  function handleCheck(todo: ITodo) {
+    axios
+      .patch(API_URL + "todos/" + todo.id, {
+        title: todo.title,
+        done: !todo.done,
+      })
+      .then((response) => {
+        const action = response.data;
+        dispatch(editDoneTodo(action));
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   return (
     <ul className="d-flex flex-column-reverse todo-list">
-      {todos.map((todo: any) => (
-        <div>
-          <li key={todo.id} className={todo.done ? "completed" : ""}>
+      {todos.map((todo: ITodo) => (
+        <div key={todo.id}>
+          <li className={todo.done ? "completed" : ""}>
             <div className="form-check">
               {" "}
               <label className="form-check-label">
@@ -52,5 +68,4 @@ function TodoList(props: any) {
     </ul>
   );
 }
-
 export default TodoList;
