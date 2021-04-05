@@ -1,18 +1,15 @@
-import React from "react";
-import _ from "lodash/fp";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTodo } from "./todoSlice";
-const API_URL = "http://localhost:3001/api/";
-
+import TodoService from '../../services/TodoService';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../TodoApp/TodoSlice';
 interface IFormInput {
   value: string;
 }
 
-function TodoForm(): JSX.Element {
-  const [value, setValue] = useState("");
+const TodoForm = () => {
+  const [value, setValue] = useState('');
   const dispatch = useDispatch();
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,21 +23,15 @@ function TodoForm(): JSX.Element {
       title: data.value,
     };
 
-    axios
-      .post(API_URL + "todos", {
-        title: formValues.title,
-        done: false,
-      })
-      .then((response) => {
-        const action = response.data;
-
-        dispatch(addTodo(action));
+    TodoService.addTodo(formValues.title, false)
+      .then((todo) => {
+        dispatch(addTodo(todo));
       })
       .catch((error) => {
         throw error;
       });
 
-    setValue("");
+    setValue('');
   };
 
   return (
@@ -68,14 +59,14 @@ function TodoForm(): JSX.Element {
           className="alert alert-danger"
           role="alert"
           style={{
-            textAlign: "left",
+            textAlign: 'left',
           }}
         >
-          <strong>{errors.value && "Input form is required"}</strong>
+          <strong>{errors.value && 'Input form is required'}</strong>
         </div>
       )}
     </React.Fragment>
   );
-}
+};
 
 export default TodoForm;

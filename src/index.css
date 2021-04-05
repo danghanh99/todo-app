@@ -1,27 +1,27 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -145,7 +145,7 @@ body {
   display: flex !important;
 }
 
-.add-items input[type="text"] {
+.add-items input[type='text'] {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
@@ -194,7 +194,7 @@ body {
   overflow: hidden;
 }
 
-.add-items input[type="text"] {
+.add-items input[type='text'] {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
@@ -258,7 +258,7 @@ body {
   cursor: pointer;
 }
 
-.list-wrapper input[type="checkbox"] {
+.list-wrapper input[type='checkbox'] {
   margin-right: 15px;
 }
 
@@ -341,7 +341,7 @@ body {
   margin-bottom: 0;
 }
 
-.list-wrapper input[type="checkbox"] {
+.list-wrapper input[type='checkbox'] {
   margin-right: 15px;
 }
 
@@ -357,8 +357,8 @@ body {
   filter: alpha(opacity=0);
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+input[type='radio'],
+input[type='checkbox'] {
   box-sizing: border-box;
   padding: 0;
 }
@@ -382,8 +382,8 @@ input[type="checkbox"] {
   white-space: nowrap;
 }
 
-.form-check .form-check-label input[type="checkbox"] + .input-helper:before {
-  content: "";
+.form-check .form-check-label input[type='checkbox'] + .input-helper:before {
+  content: '';
   width: 18px;
   height: 18px;
   border-radius: 2px;
@@ -399,14 +399,14 @@ input[type="checkbox"] {
   transition-duration: 250ms;
 }
 
-.form-check .form-check-label input[type="checkbox"] + .input-helper:before,
-.form-check .form-check-label input[type="checkbox"] + .input-helper:after {
+.form-check .form-check-label input[type='checkbox'] + .input-helper:before,
+.form-check .form-check-label input[type='checkbox'] + .input-helper:after {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.form-check .form-check-label input[type="checkbox"] + .input-helper:after {
+.form-check .form-check-label input[type='checkbox'] + .input-helper:after {
   -webkit-transition: all;
   -moz-transition: all;
   -ms-transition: all;
@@ -422,14 +422,14 @@ input[type="checkbox"] {
   -ms-transform: scale(0);
   -o-transform: scale(0);
   transform: scale(0);
-  content: "\F12C";
+  content: '\F12C';
   font-size: 0.9375rem;
   font-weight: bold;
   color: #ffffff;
 }
 
-.form-check .form-check-label input[type="checkbox"] + .input-helper:before,
-.form-check .form-check-label input[type="checkbox"] + .input-helper:after {
+.form-check .form-check-label input[type='checkbox'] + .input-helper:before,
+.form-check .form-check-label input[type='checkbox'] + .input-helper:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -437,14 +437,14 @@ input[type="checkbox"] {
 
 .form-check
   .form-check-label
-  input[type="checkbox"]:checked
+  input[type='checkbox']:checked
   + .input-helper:before {
   background: #405189;
   border-width: 0;
 }
 
-.form-check .form-check-label input[type="checkbox"] + .input-helper:before {
-  content: "";
+.form-check .form-check-label input[type='checkbox'] + .input-helper:before {
+  content: '';
   width: 18px;
   height: 18px;
   border-radius: 2px;
@@ -460,9 +460,9 @@ input[type="checkbox"] {
   transition-duration: 250ms;
 }
 
-.form-check .form-check-label input[type="checkbox"] + .input-helper:after {
+.form-check .form-check-label input[type='checkbox'] + .input-helper:after {
   font-family: FontAwesome;
-  content: "\f095";
+  content: '\f095';
   display: inline-block;
   padding-right: 3px;
   vertical-align: middle;
@@ -491,7 +491,7 @@ input[type="checkbox"] {
 }
 
 .mdi-close-circle-outline:before {
-  content: "\F15A";
+  content: '\F15A';
 }
 
 .list-wrapper ul li {
@@ -502,7 +502,7 @@ input[type="checkbox"] {
 
 .mdi:before {
   font-family: FontAwesome;
-  content: "\f00d";
+  content: '\f00d';
   display: inline-block;
   padding-right: 3px;
   vertical-align: middle;
