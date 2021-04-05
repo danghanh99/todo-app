@@ -33,7 +33,7 @@ const TodoDetail = (props: IProps) => {
 
   return (
     <div key={todo.id}>
-      <li className={todo.done ? 'completed' : ''}>
+      <li className={todo.cssClassDoned()}>
         <div className="form-check">
           {' '}
           <label className="form-check-label">

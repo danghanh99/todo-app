@@ -5,12 +5,17 @@ import TodoList from '../TodoList/TodoList';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTodos } from './TodoSlice';
 import TodoService from '../../services/TodoService';
+import { plainToClass } from 'class-transformer';
 export interface IState {
   todos: ITodo[];
 }
 
 const App = () => {
-  const todoList = useSelector((state: IState) => state.todos);
+  const todoList = plainToClass(
+    ITodo,
+    useSelector((state: IState) => state.todos)
+  );
+
   const dispatch = useDispatch();
   useEffect(() => {
     TodoService.getTodoList()
